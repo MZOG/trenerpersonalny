@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Card from '@/components/ui/Card';
+import { Card } from '@/components/ui/card';
 import { updateName } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
@@ -24,19 +24,12 @@ export default function NameForm({ userName }: { userName: string }) {
   };
 
   return (
-    <Card
-      title="Your Name"
-      description="Please enter your full name, or a display name you are comfortable with."
-      footer={
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="pb-4 sm:pb-0">64 characters maximum</p>
-          <Button type="submit" form="nameForm">
-            Update Name
-          </Button>
-        </div>
-      }
-    >
+    <Card title="Your Name">
       <div className="mt-8 mb-4 text-xl font-semibold">
+        <p>
+          Please enter your full name, or a display name you are comfortable
+          with.
+        </p>
         <form id="nameForm" onSubmit={(e) => handleSubmit(e)}>
           <input
             type="text"
@@ -47,6 +40,13 @@ export default function NameForm({ userName }: { userName: string }) {
             maxLength={64}
           />
         </form>
+
+        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+          <p className="pb-4 sm:pb-0">64 characters maximum</p>
+          <Button type="submit" form="nameForm">
+            Update Name
+          </Button>
+        </div>
       </div>
     </Card>
   );
