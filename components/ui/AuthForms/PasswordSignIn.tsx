@@ -1,20 +1,20 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { signInWithPassword } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-// Define prop type with allowEmail boolean
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
 interface PasswordSignInProps {
-  allowEmail: boolean;
   redirectMethod: string;
 }
 
 export default function PasswordSignIn({
-  allowEmail,
   redirectMethod
 }: PasswordSignInProps) {
   const router = redirectMethod === 'client' ? useRouter() : null;
@@ -33,54 +33,45 @@ export default function PasswordSignIn({
         className="mb-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              placeholder="name@example.com"
+        <div className="space-y-7">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">E-mail</Label>
+            <Input
               type="email"
+              id="email"
               name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              placeholder="email@gmail.com"
             />
           </div>
-          <Button
-            variant="slim"
-            type="submit"
-            className="mt-1"
-            loading={isSubmitting}
-          >
-            Sign in
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">Hasło</Label>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              autoComplete="password"
+              placeholder="Hasło"
+            />
+          </div>
+          <Button type="submit" className="mt-1">
+            Zaloguj
           </Button>
         </div>
       </form>
       <p>
-        <Link href="/signin/forgot_password" className="font-light text-sm">
-          Forgot your password?
+        <Link
+          href="/signin/forgot_password"
+          className="text-sm hover:underline"
+        >
+          Resetuj hasło
         </Link>
       </p>
-      {allowEmail && (
-        <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
-            Sign in via magic link
-          </Link>
-        </p>
-      )}
       <p>
-        <Link href="/signin/signup" className="font-light text-sm">
-          Don't have an account? Sign up
+        <Link href="/signin/signup" className="text-sm hover:underline">
+          Nie masz konta? Zarejestruj się
         </Link>
       </p>
     </div>

@@ -146,17 +146,20 @@ export async function signInWithPassword(formData: FormData) {
   if (error) {
     redirectPath = getErrorRedirect(
       '/signin/password_signin',
-      'Sign in failed.',
-      error.message
+      'Błąd',
+      'Spróbuj wpisać e-mail i hasło ponownie.'
     );
   } else if (data.user) {
     cookieStore.set('preferredSignInView', 'password_signin', { path: '/' });
-    redirectPath = getStatusRedirect('/', 'Success!', 'You are now signed in.');
+    redirectPath = getStatusRedirect(
+      '/',
+      'Success!',
+      'Jesteś teraz zalogowany'
+    );
   } else {
     redirectPath = getErrorRedirect(
       '/signin/password_signin',
-      'Hmm... Something went wrong.',
-      'You could not be signed in.'
+      'Hmm... Coś poszło nie tak.'
     );
   }
 
@@ -173,8 +176,8 @@ export async function signUp(formData: FormData) {
   if (!isValidEmail(email)) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
-      'Invalid email address.',
-      'Please try again.'
+      'Nieprawidłowy adres e-mail',
+      'Spróbuj ponownie'
     );
   }
 
@@ -190,11 +193,15 @@ export async function signUp(formData: FormData) {
   if (error) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
-      'Sign up failed.',
-      error.message
+      'Rejestracja nie powiodła się.',
+      'Podaj e-mail oraz hasło.'
     );
   } else if (data.session) {
-    redirectPath = getStatusRedirect('/', 'Success!', 'You are now signed in.');
+    redirectPath = getStatusRedirect(
+      '/',
+      'Success!',
+      'Jesteś teraz zalogowany.'
+    );
   } else if (
     data.user &&
     data.user.identities &&
@@ -203,19 +210,19 @@ export async function signUp(formData: FormData) {
     redirectPath = getErrorRedirect(
       '/signin/signup',
       'Sign up failed.',
-      'There is already an account associated with this email address. Try resetting your password.'
+      'Istnieje już konto z tym adresem e-mail. Spróbuj zresetowaćc hasło.'
     );
   } else if (data.user) {
     redirectPath = getStatusRedirect(
       '/',
       'Success!',
-      'Please check your email for a confirmation link. You may now close this tab.'
+      'Sprawdź e-mail z linkiem potwierdzającym.'
     );
   } else {
     redirectPath = getErrorRedirect(
       '/signin/signup',
-      'Hmm... Something went wrong.',
-      'You could not be signed up.'
+      'Hmm... Coś poszło nie tak.',
+      'Nie możemy Cię zalogować.'
     );
   }
 
@@ -231,8 +238,8 @@ export async function updatePassword(formData: FormData) {
   if (password !== passwordConfirm) {
     redirectPath = getErrorRedirect(
       '/signin/update_password',
-      'Your password could not be updated.',
-      'Passwords do not match.'
+      'Hasło nie może zostać zaktualizowane.',
+      'Hasła się różnią.'
     );
   }
 

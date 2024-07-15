@@ -1,12 +1,14 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import React from 'react';
 import Link from 'next/link';
 import { signUp } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 // Define prop type with allowEmail boolean
 interface SignUpProps {
@@ -31,52 +33,47 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
         className="mb-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              placeholder="name@example.com"
+        <div className="space-y-7">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">E-mail</Label>
+            <Input
               type="email"
+              id="email"
               name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              placeholder="name@example.com"
             />
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              placeholder="Password"
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">Hasło</Label>
+            <Input
               type="password"
+              id="password"
               name="password"
-              autoComplete="current-password"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              autoComplete="password"
+              placeholder="Hasło"
             />
           </div>
           <Button
-            variant="slim"
             type="submit"
-            className="mt-1"
-            loading={isSubmitting}
+            // className="mt-1"
+            // loading={isSubmitting}
           >
-            Sign up
+            Zarejestruj
           </Button>
         </div>
       </form>
-      <p>Already have an account?</p>
+      <p className="font-medium">Masz już konto?</p>
       <p>
-        <Link href="/signin/password_signin" className="font-light text-sm">
-          Sign in with email and password
+        <Link
+          href="/signin/password_signin"
+          className="text-sm hover:underline"
+        >
+          Zaloguj się
         </Link>
       </p>
-      {allowEmail && (
-        <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
-            Sign in via magic link
-          </Link>
-        </p>
-      )}
     </div>
   );
 }

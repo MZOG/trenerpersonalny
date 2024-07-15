@@ -1,21 +1,20 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { requestPasswordUpdate } from '@/utils/auth-helpers/server';
 import { handleRequest } from '@/utils/auth-helpers/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 // Define prop type with allowEmail boolean
 interface ForgotPasswordProps {
-  allowEmail: boolean;
   redirectMethod: string;
   disableButton?: boolean;
 }
 
 export default function ForgotPassword({
-  allowEmail,
   redirectMethod,
   disableButton
 }: ForgotPasswordProps) {
@@ -35,46 +34,35 @@ export default function ForgotPassword({
         className="mb-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              placeholder="name@example.com"
+        <div className="space-y-7">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">E-mail</Label>
+            <Input
               type="email"
+              id="email"
               name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              placeholder="email@gmail.com"
             />
           </div>
-          <Button
-            variant="slim"
-            type="submit"
-            className="mt-1"
-            loading={isSubmitting}
-            disabled={disableButton}
-          >
-            Send Email
+          <Button type="submit" className="mt-1" disabled={disableButton}>
+            Resetuj hasło
           </Button>
         </div>
       </form>
       <p>
-        <Link href="/signin/password_signin" className="font-light text-sm">
-          Sign in with email and password
+        <Link
+          href="/signin/password_signin"
+          className="text-sm hover:underline"
+        >
+          Zaloguj się
         </Link>
       </p>
-      {allowEmail && (
-        <p>
-          <Link href="/signin/email_signin" className="font-light text-sm">
-            Sign in via magic link
-          </Link>
-        </p>
-      )}
       <p>
-        <Link href="/signin/signup" className="font-light text-sm">
-          Don't have an account? Sign up
+        <Link href="/signin/signup" className="text-sm hover:underline">
+          Nie masz konta? Zarejestruj się
         </Link>
       </p>
     </div>
